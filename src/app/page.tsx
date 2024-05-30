@@ -1,3 +1,5 @@
+"use client";
+import React, { useState } from 'react';
 import Image from "next/image";
 import {
   Table,
@@ -15,15 +17,41 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Button } from "@/components/ui/button";
 
 
 
 export default function Home() {
+  const [selectedValue, setSelectedValue] = useState('');
 
+  const handleSelectChange = (value:any) => {
+    setSelectedValue(value);
+  };
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="grid grid-cols-1 w-full">
-        <h2 className="text-2xl font-bold text-left w-full">Links</h2>
+        <h2 className="text-2xl font-bold text-left w-full">CMS Links</h2>
+        <div className="grid grid-cols-9 justify-between items-center space-x-2">
+      <Select onValueChange={handleSelectChange}>
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Select Links Here" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="Product">Product</SelectItem>
+          <SelectItem value="Video">Video</SelectItem>
+          {/* <SelectItem value="Publication">Publication</SelectItem>
+          <SelectItem value="brochure">Brochure</SelectItem> */}
+        </SelectContent>
+      </Select>
+
+      {selectedValue && (
+        <div className="flex space-x-2">
+          <Button className="hover:bg-green-400">Add</Button>
+          <Button className="hover:bg-red-400">Delete</Button>
+        </div>
+      )}
+    </div>
+    
         <Table>
           <TableCaption>A list of your recent invoices.</TableCaption>
           <TableHeader>
@@ -35,21 +63,13 @@ export default function Home() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
+            
+                <TableRow>
               <TableCell className="font-medium">INV001</TableCell>
               <TableCell>Paid</TableCell>
               <TableCell>Credit Card</TableCell>
               <TableCell className="text-right absolute right-0">
-                <Select>
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Theme" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="light">Light</SelectItem>
-                    <SelectItem value="dark">Dark</SelectItem>
-                    <SelectItem value="system">System</SelectItem>
-                  </SelectContent>
-                </Select>
+
               </TableCell>
             </TableRow>
           </TableBody>
