@@ -45,8 +45,14 @@ const AddForm: React.FC<{ show: boolean; handleClose: () => void; updateTableDat
                 console.log('Response:', data);
                 // Close the modal after successful submission
                 handleClose();
-
-                window.location.reload();
+                updateTableData();
+                setFormData({
+                    referenceType: '',
+                    referenceId: '',
+                    morphType: '',
+                    morphId: '',
+                });
+                // window.location.reload();
             })
             .catch(error => console.error('Error submitting data:', error));
     };
