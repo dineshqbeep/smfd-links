@@ -19,6 +19,16 @@ const AddForm: React.FC<{ show: boolean; handleClose: () => void; updateTableDat
         setFormData(prevState => ({ ...prevState, [id]: value }));
     };
 
+    const resetData = () => {
+        setFormData({
+            referenceType: '',
+            referenceId: '',
+            morphType: '',
+            morphId: '',
+        });
+        handleClose();
+    };
+
     const handleSubmit = () => {
         // if (!formData.referenceType || !formData.referenceId || !formData.morphType || !formData.morphId) {
         //     alert('Add Failed : Please check all fields before submitting.'); // Show an error message
@@ -44,14 +54,8 @@ const AddForm: React.FC<{ show: boolean; handleClose: () => void; updateTableDat
             .then(data => {
                 console.log('Response:', data);
                 // Close the modal after successful submission
-                handleClose();
+                resetData();
                 updateTableData();
-                setFormData({
-                    referenceType: '',
-                    referenceId: '',
-                    morphType: '',
-                    morphId: '',
-                });
                 // window.location.reload();
             })
             .catch(error => console.error('Error submitting data:', error));
@@ -268,7 +272,7 @@ const AddForm: React.FC<{ show: boolean; handleClose: () => void; updateTableDat
                                 <Button
                                     className="w-40 h-10 m-2 border bg-gray-100 rounded text-xl text-black hover:bg-gray-50"
                                     variant="secondary"
-                                    onClick={handleClose}
+                                    onClick={resetData}
                                 >
                                     Close
                                 </Button>
